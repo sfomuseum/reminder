@@ -92,6 +92,7 @@ func (db *CSVRemindersDatabase) Reminders(ctx context.Context) iter.Seq2[*remind
 				NotifyBefore: row["notify_before"],
 				Message:      row["message"],
 				DeliverTo:    row["deliver_to"],
+				DeliverFrom:  row["deliver_from"],
 			}
 
 			yield(r, nil)

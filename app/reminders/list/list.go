@@ -61,6 +61,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 			"notify_before": r.NotifyBefore,
 			"message":       r.Message,
 			"deliver_to":    r.DeliverTo,
+			"deliver_from":  r.DeliverFrom,
 		}
 
 		if csv_wr == nil {

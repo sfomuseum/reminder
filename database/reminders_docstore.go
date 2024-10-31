@@ -54,7 +54,7 @@ func (db *DocstoreRemindersDatabase) RemoveReminder(ctx context.Context, r *remi
 	return db.collection.Delete(ctx, r)
 }
 
-func (db *DocstoreRemindersDatabase) PendingReminders(ctx context.Context) iter.Seq2[*reminder.Reminder, error] {
+func (db *DocstoreRemindersDatabase) Reminders(ctx context.Context) iter.Seq2[*reminder.Reminder, error] {
 	q := db.collection.Query()
 	return db.getRemindersWithQuery(ctx, q)
 }

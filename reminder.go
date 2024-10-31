@@ -8,6 +8,7 @@ import (
 	"github.com/sfomuseum/iso8601duration"
 )
 
+// Reminder is a struct encapsulating details about a reminder message.
 type Reminder struct {
 	// A unique identifier for the reminder.
 	Id int64 `json:"id"`
@@ -19,8 +20,11 @@ type Reminder struct {
 	Message string `json:"message"`
 	// The address where the reminder should be delivered to.
 	DeliverTo string `json:deliver_to"`
+	// The address where the reminder should be delivered from.
+	DeliverFrom string `json:"deliver_from"`
 }
 
+// Return a boolean flag where the reminder is due to be dispatched.
 func (r *Reminder) IsDue() (bool, error) {
 
 	next, err := gronx.NextTick(r.Schedule, true)

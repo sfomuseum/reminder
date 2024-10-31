@@ -53,8 +53,8 @@ func (db *SQLRemindersDatabase) Close() error {
 
 func (db *SQLRemindersDatabase) AddReminder(ctx context.Context, r *reminder.Reminder) error {
 
-	q := "INSERT INTO reminders (id, schedule, notify_before, message, deliver_to) VALUES (?, ?, ?, ?, ?)"
-	_, err := db.conn.ExecContext(ctx, q, r.Id, r.Schedule, r.NotifyBefore, r.Message, r.DeliverTo)
+	q := "INSERT INTO reminders (id, schedule, notify_before, message, deliver_to, deliver_from) VALUES (?, ?, ?, ?, ?, ?)"
+	_, err := db.conn.ExecContext(ctx, q, r.Id, r.Schedule, r.NotifyBefore, r.Message, r.DeliverTo, r.DeliverFrom)
 	return err
 }
 
@@ -87,6 +87,7 @@ func (db *SQLRemindersDatabase) Reminders(ctx context.Context) iter.Seq2[*remind
 			var notify_before string
 			var message string
 			var deliver_to string
+			var deliver_from string
 
 			err := rows.Scan(&id, &schedule, &notify_before, &message, &deliver_to)
 
@@ -101,6 +102,7 @@ func (db *SQLRemindersDatabase) Reminders(ctx context.Context) iter.Seq2[*remind
 				NotifyBefore: notify_before,
 				Message:      message,
 				DeliverTo:    deliver_to,
+				DeliverFrom:  deliver_from,
 			}
 
 			yield(r, nil)

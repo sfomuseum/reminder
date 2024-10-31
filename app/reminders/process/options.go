@@ -18,6 +18,12 @@ func RunOptionsFromFlagSet(fs *flag.FlagSet) (*RunOptions, error) {
 
 	flagset.Parse(fs)
 
+	err := flagset.SetFlagsFromEnvVars(fs, "REMINDER")
+
+	if err != nil {
+		return nil, err
+	}
+
 	opts := &RunOptions{
 		RemindersDatabaseURI: reminders_database_uri,
 		MessengerAgentURIs:   messenger_agents_uris,

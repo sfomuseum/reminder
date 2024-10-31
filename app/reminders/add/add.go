@@ -74,6 +74,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 		NotifyBefore: opts.NotifyBefore,
 		Message:      opts.Message,
 		DeliverTo:    opts.DeliverTo,
+		DeliverFrom:  opts.DeliverFrom,
 	}
 
 	err = db.AddReminder(ctx, r)

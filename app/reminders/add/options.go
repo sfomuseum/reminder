@@ -12,6 +12,7 @@ type RunOptions struct {
 	NotifyBefore         string
 	Message              string
 	DeliverTo            string
+	DeliverFrom          string
 	Verbose              bool
 }
 
@@ -25,6 +26,7 @@ func RunOptionsFromFlagSet(fs *flag.FlagSet) (*RunOptions, error) {
 		NotifyBefore:         notify_before,
 		Message:              message,
 		DeliverTo:            deliver_to,
+		DeliverFrom:          deliver_from,
 		Verbose:              verbose,
 	}
 

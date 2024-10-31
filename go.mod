@@ -3,23 +3,25 @@ module github.com/sfomuseum/reminder
 go 1.23.2
 
 require (
+	github.com/aaronland/go-aws-dynamodb v0.3.0
 	github.com/aaronland/go-roster v1.0.0
 	github.com/aaronland/gocloud-docstore v0.0.8
+	github.com/aaronland/gomail-sender-ses v1.1.2
 	github.com/adhocore/gronx v1.19.3
+	github.com/aws/aws-lambda-go v1.47.0
 	github.com/aws/aws-sdk-go-v2 v1.30.4
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.34.5
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/sfomuseum/go-csvdict v1.0.0
 	github.com/sfomuseum/go-flags v0.10.0
-	github.com/sfomuseum/go-messenger v0.0.4
+	github.com/sfomuseum/go-messenger v0.0.5
 	github.com/sfomuseum/iso8601duration v1.1.0
 	gocloud.dev v0.40.0
 )
 
 require (
 	github.com/aaronland/go-aws-auth v1.6.3 // indirect
-	github.com/aaronland/go-aws-dynamodb v0.3.0 // indirect
 	github.com/aaronland/go-aws-session v0.2.1 // indirect
 	github.com/aaronland/go-string v1.0.0 // indirect
 	github.com/aaronland/gomail-sender v1.0.1 // indirect
@@ -36,6 +38,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery v1.9.17 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.17 // indirect
+	github.com/aws/aws-sdk-go-v2/service/ses v1.25.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssm v1.52.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.22.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.26.4 // indirect

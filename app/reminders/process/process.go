@@ -8,6 +8,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/sfomuseum/go-messenger"
 	"github.com/sfomuseum/iso8601duration"
 	"github.com/sfomuseum/reminder"
@@ -39,6 +40,8 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 		slog.SetLogLoggerLevel(slog.LevelDebug)
 		slog.Debug("Verbose logging enabled")
 	}
+
+	messenger.RegisterEmailSchemes(ctx)
 
 	db, err := database.NewRemindersDatabase(ctx, opts.RemindersDatabaseURI)
 
@@ -84,9 +87,12 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 					return
 				}
 
+				subject := fmt.Sprintf("Reminder #%d", r.Id)
+
 				msg := &messenger.Message{
 					To:      r.DeliverTo,
-					Subject: "Reminder",
+					From:    r.DeliverFrom,
+					Subject: subject,
 					Body:    r.Message,
 				}
 
@@ -141,7 +147,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	case "lambda":
 
-		return fmt.Errorf("Not implemented")
+		lambda.Start(process)
 
 	default:
 		return fmt.Errorf("Unsupported mode")

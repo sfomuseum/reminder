@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 
+	_ "github.com/aaronland/gomail-sender-ses"
 	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/sfomuseum/reminder/app/reminders/process"

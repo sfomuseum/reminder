@@ -16,15 +16,149 @@ type Reminder struct {
 	Message string `json:"message"`
 	// The address where the reminder should be delivered to.
 	DeliverTo string `json:deliver_to"`
+	// The address where the reminder should be delivered from.	
+	DeliverFrom string `json:"deliver_from"`	
 }
 ``
 
 ## Databases
 
+Reminders are stored in any database that implements the `database.RemindersDatabase` interface:
+
+```
+type RemindersDatabase interface {
+	AddReminder(context.Context, *reminder.Reminder) error
+	RemoveReminder(context.Context, *reminder.Reminder) error
+	Reminders(context.Context) iter.Seq2[*reminder.Reminder, error]
+	Close() error
+}
+```
+
+The following database implementations are provided by default:
+
+### CSV
+
+Read reminders from a CSV on the local disk. CSV database URIs take the form of:
+
+```
+csv:///path/to/file.csv
+```
+
+_As of this writing the CSV database implementation does not support adding or removing reminders._
+
+### Docstore
+
+Read and write reminders using anything that supports the [gocloud.dev/docstore](https://pkg.go.dev/gocloud.dev/docstore) interfaces, for example DynamoDB. Docstore database URIs take the form of: 
+
+```
+{DOCSTORE}://
+```
+
+For example:
+
+```
+awsdynamodb://{TABLE_NAME}?partition_key=Id&allow_scans=true&region={REGION}&credentials={CREDENTIALS}
+```
+
+Docstore tables needs to be set up manually. See [schema/dynamodb](schema/dynamodb) and [cmd/create-dynamodb-tables](cmd/create-dynamodb-tables) for details.
+
+### SQL
+
+Read and write reminders using anything that supports the [database/sql.DB](#) interface, for example SQLite. SQL database URIs take the form of:
+
+```
+sql://{ENGINE}?dsn={DSN}
+```
+
+For example:
+
+```
+sql://sqlite3?dsn=reminders.db
+```
+
+Support for the [mattn/go-sqlite3](https://github.com/mattn/go-sqlite3) package is enabled by default. Database tables need to be set up manually. See [schema/sqlite](schema/sqlite) for details.
+
+## Dispatching reminders
+
+Reminders are dispatched (delivered) using the [sfomuseum/go-messenger](https://github.com/sfomuseum/go-messenger) package. The following messenger agents are available by default:
+
+### Beeep
+
+Dispatch reminders to a desktop notification. Beeep messenger agent URIs take the form of:
+
+```
+beeep://
+```
+
+### Email
+
+Dispatch reminders to one or more email providers. The following email providers are available by default:
+
+#### SES
+
+Dispatch email reminders using the AWS Simple Email Service (SES). SES email messenger agent URIs take the form of:
+
+```
+email-ses://?region={REGION}&credentials={CREDENTIALS}
+```
+
+_Note: `{CREDENTIALS}` is expected to be a valid [aaronland/go-aws-auth](https://github.com/aaronland/go-aws-auth?tab=readme-ov-file#credentials) credentials string._
+
+#### SMTP
+
+Dispatch email reminders using a SMTP server. SMTP email messenger agent URIs take the form of:
+
+```
+email-smtp://?host={HOST}&port={PORT}&username={USERNAME]&password={PASSWORD}
+```
+
+### Slack
+
+Dispatch reminders to a Slack channel. Slack messenger agent URIs take the form of:
+
+```
+slack://?webhook={SLACK_WEBHOOK_URL}
+```
+
+The Slack channel the reminder should be sent to is expected to be defined in the `Reminder` instance's `To` property.
+
+### Stdout
+
+Dispatch reminders to `STDOUT`. Stdout messenger agent URIs take the form of:
+
+```
+stdout://
+```
 
 ## Tools
 
+$> make cli
+go build -mod vendor -ldflags="-s -w" -o bin/add-reminder cmd/add-reminder/main.go
+go build -mod vendor -ldflags="-s -w" -o bin/remove-reminders cmd/remove-reminders/main.go
+go build -mod vendor -ldflags="-s -w" -o bin/list-reminders cmd/list-reminders/main.go
+go build -mod vendor -ldflags="-s -w" -o bin/process-reminders cmd/process-reminders/main.go
+
 ### add-reminder
+
+```
+$> ./bin/add-reminder -h
+  -deliver-from string
+    	The address where the reminder should be delivered from.
+  -deliver-to string
+    	The address where the reminder should be delivered to.
+  -message string
+    	The message body of the reminder.
+  -notify-before string
+    	An ISO8601 duration string indicating the amount of time before the scheduled event is due to start sending reminders.
+  -reminders-database-uri string
+    	A valid sfomuseum/reminder/database.RemindersDatabase URI.
+  -schedule string
+    	A valid cron expression (that can be parsed by adhocore/gronx) for the scheduled event.
+  -verbose
+    	Enable verbose (debug) logging.
+```
+
+For example:
 
 ```
 $> ./bin/add-reminder \
@@ -35,7 +169,7 @@ $> ./bin/add-reminder \
 	
 2024/10/31 11:39:11 INFO New reminder added id=1852057750180204544
 
-#> ./bin/add-reminder \
+$> ./bin/add-reminder \
 	-reminders-database-uri 'sql://sqlite3?dsn=reminders.db' \
 	-schedule '0,15,30,45 * * * *' \
 	-notify-before 'PT2M' \
@@ -45,6 +179,16 @@ $> ./bin/add-reminder \
 ```
 
 ### list-reminders
+
+```
+$> ./bin/list-reminders -h
+  -reminders-database-uri string
+    	A valid sfomuseum/reminder/database.RemindersDatabase URI.
+  -verbose
+    	Enable verbose (debug) logging.
+```
+
+For example:
 
 ```
 $> ./bin/list-reminders \
@@ -58,6 +202,18 @@ PT2M,Hello world 2,,1852058940615954432,"0,15,30,45 * * * *"
 ### remove-reminders
 
 ```
+$> ./bin/remove-reminders -h
+  -id value
+    	One or more reminder IDs to remove
+  -reminders-database-uri string
+    	A valid sfomuseum/reminder/database.RemindersDatabase URI.
+  -verbose
+    	Enable verbose (debug) logging.
+```
+
+For example:
+
+```
 $> ./bin/remove-reminders \
 	-reminders-database-uri 'sql://sqlite3?dsn=reminders.db' \
 	-id 1852058940615954432
@@ -67,7 +223,21 @@ $> ./bin/remove-reminders \
 
 ### process-reminders
 
-#### Example
+```
+$> ./bin/process-reminders -h
+  -frequency string
+    	A valid ISO8601 duration string indicating how often to process reminders. Required if -mode daemon. (default "PT1M")
+  -messenger-agent-uri value
+    	One or more valid sfomuseum/go-messenger.Messenger URIs.
+  -mode string
+    	Valid options are: cli, daemon, lambda (default "cli")
+  -reminders-database-uri string
+    	A valid sfomuseum/reminder/database.RemindersDatabase URI.
+  -verbose
+    	Enable verbose (debug) logging.
+```
+
+For example:
 
 ```
 $> ./bin/process-reminders \
@@ -101,3 +271,4 @@ Hello world
 
 ## See also
 
+* https://github.com/sfomuseum/go-messenger
