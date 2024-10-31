@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"regexp"
 	"time"
-	
+
 	"github.com/adhocore/gronx"
 	"github.com/sfomuseum/iso8601duration"
 	"github.com/sfomuseum/reminder"
@@ -53,7 +53,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 	if err != nil {
 		return fmt.Errorf("Failed to compile YMD pattern, %w", err)
 	}
-		
+
 	schedule := opts.Schedule
 
 	if re_ymd.MatchString(schedule) {
@@ -67,7 +67,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 		schedule = fmt.Sprintf("0 0 %d %d * %d", t.Day(), t.Month(), t.Year())
 		logger.Debug("Reassign schedule", "schedule", schedule)
 	}
-	
+
 	_, err = gronx.NextTick(schedule, true)
 
 	if err != nil {

@@ -16,7 +16,7 @@ import (
 type RemindersDatabase interface {
 	// AddReminder adds a `reminder.Reminder` to the RemindersDatabase.
 	AddReminder(context.Context, *reminder.Reminder) error
-	// RemoveReminder removes a `reminder.Reminder` from the RemindersDatabase.	
+	// RemoveReminder removes a `reminder.Reminder` from the RemindersDatabase.
 	RemoveReminder(context.Context, *reminder.Reminder) error
 	// Reminders returns an `iter.Seq2` instance yielding each `reminder.Reminder` entry in the RemindersDatabase.
 	Reminders(context.Context) iter.Seq2[*reminder.Reminder, error]

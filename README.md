@@ -2,6 +2,10 @@
 
 An simple and opinionate tool for managing and dispatching reminders.
 
+## Motivation
+
+I needed something to send reminders that wasn't all wrapped up in some other service or product. This is what I built.
+
 ## Reminders
 
 ```
@@ -96,6 +100,8 @@ beeep://
 
 Dispatch reminders to one or more email providers. The following email providers are available by default:
 
+_The `from` and `to` addresses for email providers are expected to be defined in the `Reminder` instance's `DeliverTo` and `DeliverFrom` properties._
+
 #### SES
 
 Dispatch email reminders using the AWS Simple Email Service (SES). SES email messenger agent URIs take the form of:
@@ -122,7 +128,7 @@ Dispatch reminders to a Slack channel. Slack messenger agent URIs take the form 
 slack://?webhook={SLACK_WEBHOOK_URL}
 ```
 
-The Slack channel the reminder should be sent to is expected to be defined in the `Reminder` instance's `To` property.
+_The Slack channel the reminder should be sent to is expected to be defined in the `Reminder` instance's `DeliverTo` property._
 
 ### Stdout
 
@@ -131,6 +137,12 @@ Dispatch reminders to `STDOUT`. Stdout messenger agent URIs take the form of:
 ```
 stdout://
 ```
+
+### Caveats
+
+As written it is possible to introduce error conditions when using multiple messenger agents that depend on _different_ values defined in one or more of a `Reminder` instance's properties. For example using both the `email-` and `slack` messenging agents will likely trigger errors since the former expects the `DeliverTo` property of a reminder to be an email address and the latter expects it to be a (Slack) channel name.
+
+This is not ideal but for the time being this is considered to be a "known known" and you should configure things accordingly.
 
 ## Tools
 

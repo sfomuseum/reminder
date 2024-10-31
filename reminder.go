@@ -32,7 +32,7 @@ func (r *Reminder) IsDue() (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	
+
 	logger := slog.Default()
 	logger = logger.With("reminder", r.Id)
 
