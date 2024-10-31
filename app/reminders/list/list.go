@@ -88,5 +88,6 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 		}
 	}
 
+	csv_wr.Flush()
 	return nil
 }

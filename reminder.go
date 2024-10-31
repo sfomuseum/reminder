@@ -31,7 +31,6 @@ func (r *Reminder) IsDue() (bool, error) {
 
 	logger := slog.Default()
 	logger = logger.With("reminder", r.Id)
-	logger = logger.With("schedule", r.Schedule)
 
 	dur, err := duration.FromString(r.NotifyBefore)
 

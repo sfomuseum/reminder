@@ -11,6 +11,7 @@ type RunOptions struct {
 	MessengerAgentURIs   []string
 	Mode                 string
 	Verbose              bool
+	Frequency            string
 }
 
 func RunOptionsFromFlagSet(fs *flag.FlagSet) (*RunOptions, error) {
@@ -22,6 +23,7 @@ func RunOptionsFromFlagSet(fs *flag.FlagSet) (*RunOptions, error) {
 		MessengerAgentURIs:   messenger_agents_uris,
 		Mode:                 mode,
 		Verbose:              verbose,
+		Frequency:            frequency,
 	}
 
 	return opts, nil

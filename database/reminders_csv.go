@@ -52,10 +52,6 @@ func (db *CSVRemindersDatabase) AddReminder(ctx context.Context, r *reminder.Rem
 	return fmt.Errorf("Not implemented")
 }
 
-func (db *CSVRemindersDatabase) UpdateReminder(ctx context.Context, r *reminder.Reminder) error {
-	return fmt.Errorf("Not implemented")
-}
-
 func (db *CSVRemindersDatabase) RemoveReminder(ctx context.Context, r *reminder.Reminder) error {
 	return fmt.Errorf("Not implemented")
 }

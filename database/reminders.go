@@ -14,7 +14,6 @@ import (
 
 type RemindersDatabase interface {
 	AddReminder(context.Context, *reminder.Reminder) error
-	UpdateReminder(context.Context, *reminder.Reminder) error
 	RemoveReminder(context.Context, *reminder.Reminder) error
 	Reminders(context.Context) iter.Seq2[*reminder.Reminder, error]
 	Close() error

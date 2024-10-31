@@ -50,10 +50,6 @@ func (db *DocstoreRemindersDatabase) AddReminder(ctx context.Context, r *reminde
 	return db.collection.Put(ctx, r)
 }
 
-func (db *DocstoreRemindersDatabase) UpdateReminder(ctx context.Context, r *reminder.Reminder) error {
-	return db.collection.Replace(ctx, r)
-}
-
 func (db *DocstoreRemindersDatabase) RemoveReminder(ctx context.Context, r *reminder.Reminder) error {
 	return db.collection.Delete(ctx, r)
 }

@@ -9,6 +9,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.30.4
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.34.5
 	github.com/bwmarrin/snowflake v0.3.0
+	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/sfomuseum/go-csvdict v1.0.0
 	github.com/sfomuseum/go-flags v0.10.0
 	github.com/sfomuseum/go-messenger v0.0.4

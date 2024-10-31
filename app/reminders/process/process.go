@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/sfomuseum/go-messenger"
+	"github.com/sfomuseum/iso8601duration"
 	"github.com/sfomuseum/reminder"
 	"github.com/sfomuseum/reminder/database"
 )
@@ -115,7 +116,13 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	case "daemon":
 
-		ticker := time.NewTicker(1 * time.Minute)
+		d, err := duration.FromString(opts.Frequency)
+
+		if err != nil {
+			return fmt.Errorf("Invalid frequency string, %w", err)
+		}
+
+		ticker := time.NewTicker(d.ToDuration())
 		defer ticker.Stop()
 
 		for {
