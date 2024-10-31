@@ -8,11 +8,16 @@ import (
 )
 
 type Reminder struct {
-	Id        int64  `json:"id"`
-	Schedule  string `json:"schedule"`
+	// A unique identifier for the reminder
+	Id int64 `json:"id"`
+	// A valid cron expression (that can be parsed by adhocore/gronx)
+	Schedule string `json:"schedule"`
 	// An ISO8601 duration string
 	NotifyBefore string `json:"notify_before"`
-	Message      string `json:"message"`
+	// The message body of the reminder
+	Message string `json:"message"`
+	// A list of addresses to deliver the reminder to
+	DeliverTo string `json:deliver_to"`
 }
 
 func (r *Reminder) IsDue() (bool, error) {
@@ -27,7 +32,6 @@ func (r *Reminder) IsDue() (bool, error) {
 
 	if err != nil {
 		return false, err
-
 	}
 
 	d := dur.ToDuration()

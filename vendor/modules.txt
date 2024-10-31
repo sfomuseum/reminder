@@ -1,6 +1,21 @@
+# github.com/aaronland/go-aws-auth v1.6.3
+## explicit; go 1.22.1
+github.com/aaronland/go-aws-auth
+# github.com/aaronland/go-aws-dynamodb v0.3.0
+## explicit; go 1.22.1
+github.com/aaronland/go-aws-dynamodb
+# github.com/aaronland/go-aws-session v0.2.1
+## explicit; go 1.18
+github.com/aaronland/go-aws-session
 # github.com/aaronland/go-roster v1.0.0
 ## explicit; go 1.16
 github.com/aaronland/go-roster
+# github.com/aaronland/go-string v1.0.0
+## explicit; go 1.16
+github.com/aaronland/go-string/dsn
+# github.com/aaronland/gocloud-docstore v0.0.8
+## explicit; go 1.23
+github.com/aaronland/gocloud-docstore
 # github.com/aaronland/gomail-sender v1.0.1
 ## explicit; go 1.18
 github.com/aaronland/gomail-sender
@@ -10,9 +25,184 @@ github.com/aaronland/gomail/v2
 # github.com/adhocore/gronx v1.19.3
 ## explicit; go 1.13
 github.com/adhocore/gronx
+# github.com/aws/aws-sdk-go v1.55.5
+## explicit; go 1.19
+github.com/aws/aws-sdk-go/aws
+github.com/aws/aws-sdk-go/aws/auth/bearer
+github.com/aws/aws-sdk-go/aws/awserr
+github.com/aws/aws-sdk-go/aws/awsutil
+github.com/aws/aws-sdk-go/aws/client
+github.com/aws/aws-sdk-go/aws/client/metadata
+github.com/aws/aws-sdk-go/aws/corehandlers
+github.com/aws/aws-sdk-go/aws/credentials
+github.com/aws/aws-sdk-go/aws/credentials/ec2rolecreds
+github.com/aws/aws-sdk-go/aws/credentials/endpointcreds
+github.com/aws/aws-sdk-go/aws/credentials/processcreds
+github.com/aws/aws-sdk-go/aws/credentials/ssocreds
+github.com/aws/aws-sdk-go/aws/credentials/stscreds
+github.com/aws/aws-sdk-go/aws/crr
+github.com/aws/aws-sdk-go/aws/csm
+github.com/aws/aws-sdk-go/aws/defaults
+github.com/aws/aws-sdk-go/aws/ec2metadata
+github.com/aws/aws-sdk-go/aws/endpoints
+github.com/aws/aws-sdk-go/aws/request
+github.com/aws/aws-sdk-go/aws/session
+github.com/aws/aws-sdk-go/aws/signer/v4
+github.com/aws/aws-sdk-go/internal/context
+github.com/aws/aws-sdk-go/internal/ini
+github.com/aws/aws-sdk-go/internal/sdkio
+github.com/aws/aws-sdk-go/internal/sdkmath
+github.com/aws/aws-sdk-go/internal/sdkrand
+github.com/aws/aws-sdk-go/internal/sdkuri
+github.com/aws/aws-sdk-go/internal/shareddefaults
+github.com/aws/aws-sdk-go/internal/strings
+github.com/aws/aws-sdk-go/internal/sync/singleflight
+github.com/aws/aws-sdk-go/private/protocol
+github.com/aws/aws-sdk-go/private/protocol/json/jsonutil
+github.com/aws/aws-sdk-go/private/protocol/jsonrpc
+github.com/aws/aws-sdk-go/private/protocol/query
+github.com/aws/aws-sdk-go/private/protocol/query/queryutil
+github.com/aws/aws-sdk-go/private/protocol/rest
+github.com/aws/aws-sdk-go/private/protocol/restjson
+github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil
+github.com/aws/aws-sdk-go/service/dynamodb
+github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute
+github.com/aws/aws-sdk-go/service/dynamodb/expression
+github.com/aws/aws-sdk-go/service/sso
+github.com/aws/aws-sdk-go/service/sso/ssoiface
+github.com/aws/aws-sdk-go/service/ssooidc
+github.com/aws/aws-sdk-go/service/sts
+github.com/aws/aws-sdk-go/service/sts/stsiface
+# github.com/aws/aws-sdk-go-v2 v1.30.4
+## explicit; go 1.21
+github.com/aws/aws-sdk-go-v2/aws
+github.com/aws/aws-sdk-go-v2/aws/defaults
+github.com/aws/aws-sdk-go-v2/aws/middleware
+github.com/aws/aws-sdk-go-v2/aws/middleware/private/metrics
+github.com/aws/aws-sdk-go-v2/aws/protocol/query
+github.com/aws/aws-sdk-go-v2/aws/protocol/restjson
+github.com/aws/aws-sdk-go-v2/aws/protocol/xml
+github.com/aws/aws-sdk-go-v2/aws/ratelimit
+github.com/aws/aws-sdk-go-v2/aws/retry
+github.com/aws/aws-sdk-go-v2/aws/signer/internal/v4
+github.com/aws/aws-sdk-go-v2/aws/signer/v4
+github.com/aws/aws-sdk-go-v2/aws/transport/http
+github.com/aws/aws-sdk-go-v2/internal/auth
+github.com/aws/aws-sdk-go-v2/internal/auth/smithy
+github.com/aws/aws-sdk-go-v2/internal/awsutil
+github.com/aws/aws-sdk-go-v2/internal/context
+github.com/aws/aws-sdk-go-v2/internal/endpoints
+github.com/aws/aws-sdk-go-v2/internal/endpoints/awsrulesfn
+github.com/aws/aws-sdk-go-v2/internal/middleware
+github.com/aws/aws-sdk-go-v2/internal/rand
+github.com/aws/aws-sdk-go-v2/internal/sdk
+github.com/aws/aws-sdk-go-v2/internal/sdkio
+github.com/aws/aws-sdk-go-v2/internal/shareddefaults
+github.com/aws/aws-sdk-go-v2/internal/strings
+github.com/aws/aws-sdk-go-v2/internal/sync/singleflight
+github.com/aws/aws-sdk-go-v2/internal/timeconv
+# github.com/aws/aws-sdk-go-v2/config v1.27.27
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/config
+# github.com/aws/aws-sdk-go-v2/credentials v1.17.27
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/credentials
+github.com/aws/aws-sdk-go-v2/credentials/ec2rolecreds
+github.com/aws/aws-sdk-go-v2/credentials/endpointcreds
+github.com/aws/aws-sdk-go-v2/credentials/endpointcreds/internal/client
+github.com/aws/aws-sdk-go-v2/credentials/processcreds
+github.com/aws/aws-sdk-go-v2/credentials/ssocreds
+github.com/aws/aws-sdk-go-v2/credentials/stscreds
+# github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.11
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/feature/ec2/imds
+github.com/aws/aws-sdk-go-v2/feature/ec2/imds/internal/config
+# github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.16
+## explicit; go 1.21
+github.com/aws/aws-sdk-go-v2/internal/configsources
+# github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.6.16
+## explicit; go 1.21
+github.com/aws/aws-sdk-go-v2/internal/endpoints/v2
+# github.com/aws/aws-sdk-go-v2/internal/ini v1.8.0
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/internal/ini
+# github.com/aws/aws-sdk-go-v2/service/cognitoidentity v1.25.5
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/cognitoidentity
+github.com/aws/aws-sdk-go-v2/service/cognitoidentity/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/cognitoidentity/types
+# github.com/aws/aws-sdk-go-v2/service/dynamodb v1.34.5
+## explicit; go 1.21
+github.com/aws/aws-sdk-go-v2/service/dynamodb
+github.com/aws/aws-sdk-go-v2/service/dynamodb/internal/customizations
+github.com/aws/aws-sdk-go-v2/service/dynamodb/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/dynamodb/types
+# github.com/aws/aws-sdk-go-v2/service/iam v1.34.3
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/iam
+github.com/aws/aws-sdk-go-v2/service/iam/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/iam/types
+# github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.4
+## explicit; go 1.21
+github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding
+# github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery v1.9.17
+## explicit; go 1.21
+github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery
+# github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.17
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/internal/presigned-url
+# github.com/aws/aws-sdk-go-v2/service/ssm v1.52.4
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/ssm
+github.com/aws/aws-sdk-go-v2/service/ssm/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/ssm/types
+# github.com/aws/aws-sdk-go-v2/service/sso v1.22.4
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/sso
+github.com/aws/aws-sdk-go-v2/service/sso/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/sso/types
+# github.com/aws/aws-sdk-go-v2/service/ssooidc v1.26.4
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/ssooidc
+github.com/aws/aws-sdk-go-v2/service/ssooidc/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/ssooidc/types
+# github.com/aws/aws-sdk-go-v2/service/sts v1.30.3
+## explicit; go 1.20
+github.com/aws/aws-sdk-go-v2/service/sts
+github.com/aws/aws-sdk-go-v2/service/sts/internal/endpoints
+github.com/aws/aws-sdk-go-v2/service/sts/types
+# github.com/aws/smithy-go v1.20.4
+## explicit; go 1.21
+github.com/aws/smithy-go
+github.com/aws/smithy-go/auth
+github.com/aws/smithy-go/auth/bearer
+github.com/aws/smithy-go/context
+github.com/aws/smithy-go/document
+github.com/aws/smithy-go/encoding
+github.com/aws/smithy-go/encoding/httpbinding
+github.com/aws/smithy-go/encoding/json
+github.com/aws/smithy-go/encoding/xml
+github.com/aws/smithy-go/endpoints
+github.com/aws/smithy-go/internal/sync/singleflight
+github.com/aws/smithy-go/io
+github.com/aws/smithy-go/logging
+github.com/aws/smithy-go/middleware
+github.com/aws/smithy-go/private/requestcompression
+github.com/aws/smithy-go/ptr
+github.com/aws/smithy-go/rand
+github.com/aws/smithy-go/time
+github.com/aws/smithy-go/transport/http
+github.com/aws/smithy-go/transport/http/internal/io
+github.com/aws/smithy-go/waiter
+# github.com/bwmarrin/snowflake v0.3.0
+## explicit
+github.com/bwmarrin/snowflake
 # github.com/gen2brain/beeep v0.0.0-20240516210008-9c006672e7f4
 ## explicit; go 1.14
 github.com/gen2brain/beeep
+# github.com/go-ini/ini v1.67.0
+## explicit
+github.com/go-ini/ini
 # github.com/go-toast/toast v0.0.0-20190211030409-01e6764cf0a4
 ## explicit
 github.com/go-toast/toast
@@ -25,6 +215,9 @@ github.com/golang/groupcache/lru
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
+# github.com/google/wire v0.6.0
+## explicit; go 1.12
+github.com/google/wire
 # github.com/googleapis/gax-go/v2 v2.13.0
 ## explicit; go 1.20
 github.com/googleapis/gax-go/v2
@@ -32,9 +225,19 @@ github.com/googleapis/gax-go/v2/apierror
 github.com/googleapis/gax-go/v2/apierror/internal/proto
 github.com/googleapis/gax-go/v2/callctx
 github.com/googleapis/gax-go/v2/internal
+# github.com/jmespath/go-jmespath v0.4.0
+## explicit; go 1.14
+github.com/jmespath/go-jmespath
 # github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
 ## explicit
 github.com/nu7hatch/gouuid
+# github.com/sfomuseum/go-csvdict v1.0.0
+## explicit; go 1.13
+github.com/sfomuseum/go-csvdict
+# github.com/sfomuseum/go-flags v0.10.0
+## explicit; go 1.16
+github.com/sfomuseum/go-flags/flagset
+github.com/sfomuseum/go-flags/multi
 # github.com/sfomuseum/go-messenger v0.0.4
 ## explicit; go 1.23
 github.com/sfomuseum/go-messenger
@@ -66,7 +269,9 @@ go.opencensus.io/trace/propagation
 go.opencensus.io/trace/tracestate
 # gocloud.dev v0.40.0
 ## explicit; go 1.21.0
+gocloud.dev/aws
 gocloud.dev/docstore
+gocloud.dev/docstore/awsdynamodb
 gocloud.dev/docstore/driver
 gocloud.dev/docstore/internal/fields
 gocloud.dev/gcerrors

@@ -2,20 +2,39 @@ package process
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"log/slog"
 	"sync"
+	"time"
 
 	"github.com/sfomuseum/go-messenger"
 	"github.com/sfomuseum/reminder"
 	"github.com/sfomuseum/reminder/database"
 )
 
+func Run(ctx context.Context) error {
+
+	fs := DefaultFlagSet()
+	return RunWithFlagSet(ctx, fs)
+}
+
+func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet) error {
+
+	opts, err := RunOptionsFromFlagSet(fs)
+
+	if err != nil {
+		return err
+	}
+
+	return RunWithOptions(ctx, opts)
+}
+
 func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	logger := slog.Default()
 
-	db, err := database.NewReminderDatabase(ctx, opts.RemindersDatabaseURI)
+	db, err := database.NewRemindersDatabase(ctx, opts.RemindersDatabaseURI)
 
 	if err != nil {
 		return fmt.Errorf("Failed to create reminder database, %w", err)
@@ -33,7 +52,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	process := func(ctx context.Context) error {
 
-		for r, err := range db.PendingReminders(ctx) {
+		for r, err := range db.Reminders(ctx) {
 
 			if err != nil {
 				slog.Error("Failed to retrieve reminder", "error", err)
@@ -60,6 +79,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 				}
 
 				msg := &messenger.Message{
+					To:      r.DeliverTo,
 					Subject: "Reminder",
 					Body:    r.Message,
 				}
@@ -67,7 +87,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 				err = m.DeliverMessage(ctx, msg)
 
 				if err != nil {
-					logger.Error("Failed to deliver reminder", "id", r.Id, "error", err)
+					logger.Error("Failed to deliver reminder", "id", r.Id, "to", r.DeliverTo, "error", err)
 				}
 
 			}(r)
@@ -86,6 +106,23 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 		if err != nil {
 			logger.Error("Failed to process reminders", "error", err)
 			return fmt.Errorf("Failed to process reminders, %w", err)
+		}
+
+	case "daemon":
+
+		ticker := time.NewTicker(60 * time.Minute)
+		defer ticker.Stop()
+
+		for {
+			select {
+			case <-ticker.C:
+
+				err := process(ctx)
+
+				if err != nil {
+					logger.Error("Failed to process reminders", "error", err)
+				}
+			}
 		}
 
 	case "lambda":
