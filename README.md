@@ -157,7 +157,7 @@ go build -mod vendor -ldflags="-s -w" -o bin/process-reminders cmd/process-remin
 ### add-reminder
 
 ```
-> ./bin/add-reminder -h
+$> ./bin/add-reminder -h
   -deliver-from string
     	The address where the reminder should be delivered from.
   -deliver-to string
