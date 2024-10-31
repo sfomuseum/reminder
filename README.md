@@ -21,6 +21,8 @@ type Reminder struct {
 }
 ```
 
+Reminders are defined as a cron expression for when a reminder is due and an ISO8601 duration string indicating how soon _before_ that due date reminders should be dispatched (for example using the `cmd/process-reminders` tool descibed below).
+
 ## Databases
 
 Reminders are stored in any database that implements the `database.RemindersDatabase` interface:
@@ -274,3 +276,5 @@ Hello world
 ## See also
 
 * https://github.com/sfomuseum/go-messenger
+* https://github.com/adhocore/gronx
+* https://github.com/sfomuseum/iso8601duration

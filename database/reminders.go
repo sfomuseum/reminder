@@ -12,10 +12,15 @@ import (
 	"github.com/sfomuseum/reminder"
 )
 
+// RemindersDatabase is an interface for reading and writing `reminder.Reminder` instances.
 type RemindersDatabase interface {
+	// AddReminder adds a `reminder.Reminder` to the RemindersDatabase.
 	AddReminder(context.Context, *reminder.Reminder) error
+	// RemoveReminder removes a `reminder.Reminder` from the RemindersDatabase.	
 	RemoveReminder(context.Context, *reminder.Reminder) error
+	// Reminders returns an `iter.Seq2` instance yielding each `reminder.Reminder` entry in the RemindersDatabase.
 	Reminders(context.Context) iter.Seq2[*reminder.Reminder, error]
+	// Close performs final operations when terminating the underlying RemindersDatabase connection.
 	Close() error
 }
 
