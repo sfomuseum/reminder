@@ -132,11 +132,13 @@ stdout://
 
 ## Tools
 
+```
 $> make cli
 go build -mod vendor -ldflags="-s -w" -o bin/add-reminder cmd/add-reminder/main.go
 go build -mod vendor -ldflags="-s -w" -o bin/remove-reminders cmd/remove-reminders/main.go
 go build -mod vendor -ldflags="-s -w" -o bin/list-reminders cmd/list-reminders/main.go
 go build -mod vendor -ldflags="-s -w" -o bin/process-reminders cmd/process-reminders/main.go
+```
 
 ### add-reminder
 
