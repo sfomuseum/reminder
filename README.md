@@ -19,7 +19,7 @@ type Reminder struct {
 	// The address where the reminder should be delivered from.	
 	DeliverFrom string `json:"deliver_from"`	
 }
-``
+```
 
 ## Databases
 
