@@ -21,7 +21,7 @@ func DefaultFlagSet() *flag.FlagSet {
 	fs := flagset.NewFlagSet("add")
 
 	fs.StringVar(&reminders_database_uri, "reminders-database-uri", "", "A valid sfomuseum/reminder/database.RemindersDatabase URI.")
-	fs.StringVar(&schedule, "schedule", "", "A valid cron expression (that can be parsed by adhocore/gronx) for the scheduled event.")
+	fs.StringVar(&schedule, "schedule", "", "A valid cron expression for the scheduled event. If defined as a 'YYYY-MM-DD' date string those value will be used to generate a new schedule (cron) expression in the form of: 0 0 {DAY} {MONTH} * {YEAR}")
 	fs.StringVar(&notify_before, "notify-before", "", "An ISO8601 duration string indicating the amount of time before the scheduled event is due to start sending reminders.")
 	fs.StringVar(&message, "message", "", "The message body of the reminder.")
 	fs.StringVar(&deliver_to, "deliver-to", "", "The address where the reminder should be delivered to.")

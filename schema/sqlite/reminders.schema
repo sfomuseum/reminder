@@ -5,5 +5,6 @@ CREATE TABLE reminders (
        schedule TEXT,
        notify_before TEXT,
        message TEXT,
-       deliver_to TEXT
+       deliver_to TEXT,
+       deliver_from TEXT       
 );

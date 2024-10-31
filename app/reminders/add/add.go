@@ -5,7 +5,9 @@ import (
 	"flag"
 	"fmt"
 	"log/slog"
-
+	"regexp"
+	"time"
+	
 	"github.com/adhocore/gronx"
 	"github.com/sfomuseum/iso8601duration"
 	"github.com/sfomuseum/reminder"
@@ -46,7 +48,27 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	defer db.Close()
 
-	_, err = gronx.NextTick(opts.Schedule, true)
+	re_ymd, err := regexp.Compile(`^\d{4}\-\d{2}\-\d{2}$`)
+
+	if err != nil {
+		return fmt.Errorf("Failed to compile YMD pattern, %w", err)
+	}
+		
+	schedule := opts.Schedule
+
+	if re_ymd.MatchString(schedule) {
+
+		t, err := time.Parse("2006-01-02", schedule)
+
+		if err != nil {
+			return fmt.Errorf("Failed to parse YMD schedule, %w", err)
+		}
+
+		schedule = fmt.Sprintf("0 0 %d %d * %d", t.Day(), t.Month(), t.Year())
+		logger.Debug("Reassign schedule", "schedule", schedule)
+	}
+	
+	_, err = gronx.NextTick(schedule, true)
 
 	if err != nil {
 		return fmt.Errorf("Failed to parse schedule, %w", err)

@@ -145,7 +145,7 @@ go build -mod vendor -ldflags="-s -w" -o bin/process-reminders cmd/process-remin
 ### add-reminder
 
 ```
-$> ./bin/add-reminder -h
+> ./bin/add-reminder -h
   -deliver-from string
     	The address where the reminder should be delivered from.
   -deliver-to string
@@ -157,7 +157,7 @@ $> ./bin/add-reminder -h
   -reminders-database-uri string
     	A valid sfomuseum/reminder/database.RemindersDatabase URI.
   -schedule string
-    	A valid cron expression (that can be parsed by adhocore/gronx) for the scheduled event.
+    	A valid cron expression for the scheduled event. If defined as a 'YYYY-MM-DD' date string those value will be used to generate a new schedule (cron) expression in the form of: 0 0 {DAY} {MONTH} * {YEAR}
   -verbose
     	Enable verbose (debug) logging.
 ```
@@ -180,6 +180,17 @@ $> ./bin/add-reminder \
 	-message 'Hello world 2'
 	
 2024/10/31 11:43:55 INFO New reminder added id=1852058940615954432
+
+$> ./bin/add-reminder \
+	-reminders-database-uri 'sql://sqlite3?dsn=reminders.db' \
+	-schedule '2025-03-20' \
+	-notify-before P14D \
+	-message 'Remember that is 2025' \
+	-verbose
+	
+2024/10/31 14:13:10 DEBUG Verbose logging enabled
+2024/10/31 14:13:10 DEBUG Reassign schedule schedule="0 0 20 3 * 2025"
+2024/10/31 14:13:10 INFO New reminder added id=1852096497911336960
 ```
 
 ### list-reminders
