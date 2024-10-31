@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/sfomuseum/reminder/app/process"
+	"github.com/sfomuseum/reminder/app/reminders/process"
 )
 
 func main() {

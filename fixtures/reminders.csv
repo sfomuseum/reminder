@@ -1,2 +1,2 @@
 id,schedule,notify_before,deliver_to,message
-1,*/5 * * * * ?,PT1M,,testing
+1,"0,15,30,45 * * * *",PT2M,,hello world

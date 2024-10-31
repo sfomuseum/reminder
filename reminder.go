@@ -1,6 +1,7 @@
 package reminder
 
 import (
+	"log/slog"
 	"time"
 
 	"github.com/adhocore/gronx"
@@ -8,15 +9,15 @@ import (
 )
 
 type Reminder struct {
-	// A unique identifier for the reminder
+	// A unique identifier for the reminder.
 	Id int64 `json:"id"`
-	// A valid cron expression (that can be parsed by adhocore/gronx)
+	// A valid cron expression (that can be parsed by adhocore/gronx) for the scheduled event.
 	Schedule string `json:"schedule"`
-	// An ISO8601 duration string
+	// An ISO8601 duration string indicating the amount of time before the scheduled event is due to start sending reminders.
 	NotifyBefore string `json:"notify_before"`
-	// The message body of the reminder
+	// The message body of the reminder.
 	Message string `json:"message"`
-	// A list of addresses to deliver the reminder to
+	// The address where the reminder should be delivered to.
 	DeliverTo string `json:deliver_to"`
 }
 
@@ -28,6 +29,10 @@ func (r *Reminder) IsDue() (bool, error) {
 		return false, err
 	}
 
+	logger := slog.Default()
+	logger = logger.With("reminder", r.Id)
+	logger = logger.With("schedule", r.Schedule)
+
 	dur, err := duration.FromString(r.NotifyBefore)
 
 	if err != nil {
@@ -36,13 +41,19 @@ func (r *Reminder) IsDue() (bool, error) {
 
 	d := dur.ToDuration()
 
+	now := time.Now()
+
+	logger.Debug("Now", "t", now)
+	logger.Debug("Next", "t", next)
+
 	trigger := next.Add(-d)
 
-	now := time.Now()
+	logger.Debug("Trigger", "t", trigger)
 
 	if trigger.After(now) {
 		return false, nil
 	}
 
+	logger.Debug("Reminder is due")
 	return true, nil
 }

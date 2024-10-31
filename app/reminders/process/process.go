@@ -34,6 +34,11 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	logger := slog.Default()
 
+	if opts.Verbose {
+		slog.SetLogLoggerLevel(slog.LevelDebug)
+		slog.Debug("Verbose logging enabled")
+	}
+
 	db, err := database.NewRemindersDatabase(ctx, opts.RemindersDatabaseURI)
 
 	if err != nil {
@@ -110,12 +115,14 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	case "daemon":
 
-		ticker := time.NewTicker(60 * time.Minute)
+		ticker := time.NewTicker(1 * time.Minute)
 		defer ticker.Stop()
 
 		for {
 			select {
 			case <-ticker.C:
+
+				logger.Debug("Process reminders")
 
 				err := process(ctx)
 

@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS reminders;
+
+CREATE TABLE reminders (
+       id INTEGER PRIMARY KEY,
+       schedule TEXT,
+       notify_before TEXT,
+       message TEXT,
+       deliver_to TEXT
+);
