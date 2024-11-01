@@ -38,7 +38,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	if opts.Verbose {
 		slog.SetLogLoggerLevel(slog.LevelDebug)
-		slog.Debug("Verbose logging enabled")
+		logger.Debug("Verbose logging enabled")
 	}
 
 	messenger.RegisterEmailSchemes(ctx)
@@ -64,7 +64,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 		for r, err := range db.Reminders(ctx) {
 
 			if err != nil {
-				slog.Error("Failed to retrieve reminder", "error", err)
+				logger.Error("Failed to retrieve reminder", "error", err)
 				break
 			}
 
@@ -80,7 +80,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 				is_due, err := r.IsDue()
 
 				if err != nil {
-					slog.Error("Failed to determine is reminder is due", "error", err)
+					logger.Error("Failed to determine is reminder is due", "error", err)
 				}
 
 				if !is_due {
