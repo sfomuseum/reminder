@@ -1,6 +1,6 @@
 # reminder
 
-An simple and opinionate tool for managing and dispatching reminders.
+An simple and opinionated tool for managing and dispatching reminders before an event is scheduled to occur.
 
 ## Motivation
 
