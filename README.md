@@ -296,6 +296,41 @@ Hello world
 Hello world
 ```
 
+#### Running as an AWS Lambda function
+
+It is possible to run the `process-reminders` tool as an AWS Lambda function. To build the function run the `lambda` Makefile target:
+
+```
+$> make lambda
+if test -f bootstrap; then rm -f bootstrap; fi
+if test -f process-reminders.zip; then rm -f process-reminders.zip; fi
+GOARCH=arm64 GOOS=linux go build -mod vendor -ldflags="-s -w" -tags lambda.norpc -o bootstrap cmd/process-reminders/main.go
+zip process-reminders.zip bootstrap
+  adding: bootstrap (deflated 71%)
+rm -f bootstrap
+```
+
+Upload `process-reminders.zip` to your Lambda function as an "Amazon Linux 2" runtime and configure the IAM roles and policies as needed. For example, if you want to use DynamoDB as a storage engine for reminders the `email-ses://` messaging agent you'll need to make sure your Lambda function can access both of these services accordingly. The details of those configurations are outside the scope of this documentation.
+
+Environment variables for Lambda functions map to command line flags. The mapping is as follows:
+
+* For any given command line flag, convert the flag name to upper-case
+* Replace all instances of "-" with "_"
+* Prepend the value with "REMINDER_"
+
+For example the `-reminders-database-uri` flag becomes the `REMINDER_REMINDERS_DATABASE_URI` environment variable.
+
+Here is an example set of environment variables for running the `process-reminders` tool as a Lambda function:
+
+| Key | Value | Notes |
+| --- | --- | --- |
+| REMINDER_MESSENGER_AGENT_URI | email-ses://?region={REGION}&credentials=iam:,stdout://  | Mulitple messenger agent URIs can be specified as comma-separated string |
+| REMINDER_MODE | lambda | |
+| REMINDER_REMINDERS_DATABASE_URI | awsdynamodb://{TABLE_NAME}?partition_key=Id&allow_scans=true&region={CREDENTIALS}&credentials=iam: | |
+| REMINDER_VERBOSE | true | |
+
+Note that the function does _not_ run as a long-running daemon and will be need to be configured to be triggered at regular intervals using an "EventBridge" rule or some other mechanism.
+
 ## See also
 
 * https://github.com/sfomuseum/go-messenger
