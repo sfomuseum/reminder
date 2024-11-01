@@ -100,7 +100,7 @@ beeep://
 
 Dispatch reminders to one or more email providers. The following email providers are available by default:
 
-_The `from` and `to` addresses for email providers are expected to be defined in the `Reminder` instance's `DeliverTo` and `DeliverFrom` properties._
+The `from` and `to` addresses for email providers are expected to be defined in the `Reminder` instance's `DeliverTo` and `DeliverFrom` properties. Default values can be assigned in the agent constructor URI. [See below for details](#caveats).
 
 #### SES
 
@@ -128,7 +128,7 @@ Dispatch reminders to a Slack channel. Slack messenger agent URIs take the form 
 slack://?webhook={SLACK_WEBHOOK_URL}
 ```
 
-_The Slack channel the reminder should be sent to is expected to be defined in the `Reminder` instance's `DeliverTo` property._
+The `channel` and `from` properties for Slack providers are expected to be defined in the `Reminder` instance's `DeliverTo` and `DeliverFrom` properties. Default values can be assigned in the agent constructor URI. [See below for details](#caveats).
 
 ### Stdout
 
