@@ -14,6 +14,8 @@ import (
 type EmailDeliveryAgent struct {
 	DeliveryAgent
 	sender gomail.Sender
+	to     string
+	from   string
 }
 
 // In principle this could also be done with a sync.OnceFunc call but that will
@@ -74,8 +76,15 @@ func NewEmailDeliveryAgent(ctx context.Context, uri string) (DeliveryAgent, erro
 		return nil, fmt.Errorf("Failed to create new email sender, %w", err)
 	}
 
+	q := u.Query()
+
+	to := q.Get("to")
+	from := q.Get("from")
+
 	agent := &EmailDeliveryAgent{
 		sender: s,
+		to:     to,
+		from:   from,
 	}
 
 	return agent, nil
@@ -83,11 +92,22 @@ func NewEmailDeliveryAgent(ctx context.Context, uri string) (DeliveryAgent, erro
 
 func (agent *EmailDeliveryAgent) DeliverMessage(ctx context.Context, msg *Message) error {
 
+	to := agent.to
+	from := agent.from
+
+	if msg.To != "" {
+		to = msg.To
+	}
+
+	if msg.From != "" {
+		from = msg.From
+	}
+
 	gomail_msg := gomail.NewMessage()
 
 	gomail_msg.SetHeader("Subject", msg.Subject)
-	gomail_msg.SetHeader("From", msg.From)
-	gomail_msg.SetHeader("To", msg.To)
+	gomail_msg.SetHeader("From", from)
+	gomail_msg.SetHeader("To", to)
 
 	gomail_msg.SetBody("text/html", msg.Body)
 

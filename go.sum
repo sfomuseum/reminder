@@ -156,8 +156,8 @@ github.com/sfomuseum/go-csvdict v1.0.0 h1:ECLdgya7eXmJ8oJpk8JKmiUmQhahgXehHPWIC+
 github.com/sfomuseum/go-csvdict v1.0.0/go.mod h1:cXhcPaOj1q//WQpkcH1HEXeAdNd0N/P+EniPVNfnBxs=
 github.com/sfomuseum/go-flags v0.10.0 h1:1OC1ACxpWMsl3XQ9OeNVMQj7Zi2CzufP3Rym3mPI8HU=
 github.com/sfomuseum/go-flags v0.10.0/go.mod h1:VXOnnX1/yxQpX2yiwHaBV6aCmhtszQOL5bL1/nNo3co=
-github.com/sfomuseum/go-messenger v0.0.5 h1:BwIQYtfGH3kmLpjH43zAIVE3t3MB7McxRzoFidI6QWQ=
-github.com/sfomuseum/go-messenger v0.0.5/go.mod h1:iG9XnUVzeu36CIgz+mHbNOJeGXMwG/nLbabE39YXveo=
+github.com/sfomuseum/go-messenger v0.0.6 h1:M/bVlEdec7bS6LI2JETdTANr+S9RbhHzTt1iyLuUfyQ=
+github.com/sfomuseum/go-messenger v0.0.6/go.mod h1:iG9XnUVzeu36CIgz+mHbNOJeGXMwG/nLbabE39YXveo=
 github.com/sfomuseum/go-slack v1.2.0 h1:J+PUJQQWpynZNqHDabrohcN8K2GnvtTTOMvXR/DZ52o=
 github.com/sfomuseum/go-slack v1.2.0/go.mod h1:Tlz0+xxGkuMSo6hU+4/HvsqzOFu8bGNrLDxrB/MKGmc=
 github.com/sfomuseum/iso8601duration v1.1.0 h1:kMYzbamrZp9dRxi5iFuhjl5CzHXK6s6Bzz/c75wsq8Q=

@@ -142,7 +142,27 @@ stdout://
 
 As written it is possible to introduce error conditions when using multiple messenger agents that depend on _different_ values defined in one or more of a `Reminder` instance's properties. For example using both the `email-` and `slack` messenging agents will likely trigger errors since the former expects the `DeliverTo` property of a reminder to be an email address and the latter expects it to be a (Slack) channel name.
 
-This is not ideal but for the time being this is considered to be a "known known" and you should configure things accordingly.
+To account for this the `go-messenger` package allows you to specify _default_ properties for both the email and Slack messenging agents:
+
+#### Email
+
+You can specify the default to or from values for email messages by defining the `to` or `from` properties in the agent constructor URI. For example:
+
+```
+email-ses://?region={REGION}&credentials={CREDENTIALS}&to={TO}&from={FROM}
+```
+
+These are default values only. The to value will be overridden if the `DeliverTo` property of a reminder is set. The from value will we be overridden if the `DeliverTo` property of a reminder is set.
+
+#### Slack
+
+You can specify the default channel or from values for Slack messages by defining the `channel` or `from` properties in the agent constructor URI. For example:
+
+```
+slack://?webhook={SLACK_WEBHOOK_URL}&channel={CHANNEL}&from={FROM}
+```
+
+These are default values only. The channel value will be overridden if the `DeliverTo` property of a reminder is set. The from value will we be overridden if the `DeliverTo` property of a reminder is set.
 
 ## Tools
 
