@@ -92,7 +92,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 
 	r := &reminder.Reminder{
 		Id:           id,
-		Schedule:     opts.Schedule,
+		Schedule:     schedule,
 		NotifyBefore: opts.NotifyBefore,
 		Message:      opts.Message,
 		DeliverTo:    opts.DeliverTo,
