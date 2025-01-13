@@ -77,13 +77,16 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 				logger := slog.Default()
 				logger = logger.With("reminder", r.Id)
 
+				logger.Debug("Check whether reminder is due")
+				
 				is_due, err := r.IsDue()
 
 				if err != nil {
-					logger.Error("Failed to determine is reminder is due", "error", err)
+					logger.Error("Failed to determine if reminder is due", "error", err)
 				}
 
 				if !is_due {
+					logger.Debug("Reminder is not due, skipping")
 					return
 				}
 
@@ -96,6 +99,8 @@ func RunWithOptions(ctx context.Context, opts *RunOptions) error {
 					Body:    r.Message,
 				}
 
+				logger.Debug("Deliver message", "to", r.DeliverTo)
+				
 				err = m.DeliverMessage(ctx, msg)
 
 				if err != nil {
