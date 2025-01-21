@@ -344,9 +344,9 @@ Here is an example set of environment variables for running the `process-reminde
 
 | Key | Value | Notes |
 | --- | --- | --- |
-| REMINDER_MESSENGER_AGENT_URI | email-ses://?region={REGION}&credentials=iam:,stdout://  | Mulitple messenger agent URIs can be specified as comma-separated string |
+| REMINDER_MESSENGER_AGENT_URI | email-ses://?region={REGION}&credentials={CREDENTIALS},stdout://  | Mulitple messenger agent URIs can be specified as comma-separated string |
 | REMINDER_MODE | lambda | |
-| REMINDER_REMINDERS_DATABASE_URI | awsdynamodb://{TABLE_NAME}?partition_key=Id&allow_scans=true&region={CREDENTIALS}&credentials=iam: | |
+| REMINDER_REMINDERS_DATABASE_URI | awsdynamodb://{TABLE_NAME}?partition_key=Id&allow_scans=true&region={REGION}&credentials={CREDENTIALS} | |
 | REMINDER_VERBOSE | true | |
 
 Note that the function does _not_ run as a long-running daemon and will be need to be configured to be triggered at regular intervals using an "EventBridge" rule or some other mechanism.
